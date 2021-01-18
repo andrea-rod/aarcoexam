@@ -3,22 +3,21 @@ var action = {
         data.IdAplication = 2;
         return new Promise(function (resolve, reject) {
             $.ajax({
+                dataType: "text",
                 type: "POST",
                 url: "https://apitestcotizamatico.azurewebsites.net/api/catalogos",
                 data: data,
                 success: function ($data) {
-                    if ($data.Error !== null) {
-                        alert("Error");
+                    var response = JSON.parse($data);
+                    if (response.Error !== null) {
+                        alert(response.Error.sDescripcion ? response.Error.sDescripcion : "Error sin descripción");
                         reject();
-                    } else resolve(JSON.parse($data.CatalogoJsonString));
+                    } else resolve(JSON.parse(response.CatalogoJsonString));
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
-                    alert("Ocurrió un error consultando");
+                    console.log(thrownError);
                     reject();
                 },
-                dataType: "application/json",
             })
         });
     },
@@ -26,6 +25,16 @@ var action = {
 
 $(document).ready(function () {
     console.log("Iniciado...");
+    action.requestData({
+        NombreCatalogo: "Marca",
+        Filtro: 1,
+    }).then(function (data) {
+        $("#marca").empty();
+        $("#marca").append("<option value='0' selected>Seleccione una marca<option/>");
+        data.forEach(element => {
+            $("#marca").append("<option value='" + element.iIdMarca + "'>" + element.sMarca + "<option/>");
+        });
+    }).catch(function () { });
 
     //INICIALIZACIÓN DE PLUGINS
     $('#cotizacion').parsley();
@@ -44,17 +53,70 @@ $(document).ready(function () {
     //EVENTOS
     $('#cotizacion').on("submit", function (e) {
         e.preventDefault();
+        alert("Datos enviados correctamente.")
     });
     $("#codigopostal").on("input", function (e) {
-        console.log(e.target.value);
-        if (e.target.value.length === 5) action.requestData({
-            NombreCatalogo: "Sepomex",
-            Filtro: e.target.value,
+        if (e.target.value.length === 5) {
+            action.requestData({
+                NombreCatalogo: "Sepomex",
+                Filtro: e.target.value,
+            }).then(function (data) {
+                $("#municipio").val(data[0].Municipio.sMunicipio);
+                $("#estado").val(data[0].Municipio.Estado.sEstado);
+                $("#colonia").val(data[0].Ubicacion[0].sUbicacion);
+            }).catch(function () {
+                $("#codigopostal").val("")
+            });
+        } else {
+            $(".ubicacion").val("")
+        }
+    });
+    $("#marca").on("change", function (e) {
+        action.requestData({
+            NombreCatalogo: "Submarca",
+            Filtro: this.value,
         }).then(function (data) {
-            console.log(data)
-
+            $("#submarca").empty();
+            $("#modelo").empty();
+            $("#descripcion").empty();
+            $("#submarca").append("<option value='0' selected>Seleccione una submarca<option/>");
+            data.forEach(element => {
+                $("#submarca").append("<option value='" + element.iIdSubMarca + "'>" + element.sSubMarca + "<option/>");
+            });
         }).catch(function () {
-            $("#codigopostal").val("")
+            $("#submarca").val("");
+            $("#modelo").val("");
+            $("#descripcion ").val("");
+        });
+    });
+    $("#submarca").on("change", function (e) {
+        action.requestData({
+            NombreCatalogo: "Modelo",
+            Filtro: this.value,
+        }).then(function (data) {
+            $("#modelo").empty();
+            $("#descripcion").empty();
+            $("#modelo").append("<option value='0' selected>Seleccione un modelo<option/>");
+            data.forEach(element => {
+                $("#modelo").append("<option value='" + element.iIdModelo + "'>" + element.sModelo + "<option/>");
+            });
+        }).catch(function () {
+            $("#modelo").val("");
+            $("#descripcion").val("");
+        });
+    });
+    $("#modelo").on("change", function (e) {
+        action.requestData({
+            NombreCatalogo: "DescripcionModelo",
+            Filtro: this.value,
+        }).then(function (data) {
+            $("#descripcion").empty();
+            $("#descripcion").append("<option value='0' selected>Seleccione una descripción<option/>");
+            data.forEach(element => {
+                $("#descripcion").append("<option value='" + element.iIdDescripcionModelo + "'>" + element.sDescripcion + "<option/>");
+            });
+        }).catch(function () {
+            $("#descripcion").val("");
         });
     });
 })
