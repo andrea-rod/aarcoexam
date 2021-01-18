@@ -1,0 +1,12 @@
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.footer{
+    background-color: #343a40!important;
+    padding: 10px;
+}
+
+.footer span{
+    color: #ffffff;
+}

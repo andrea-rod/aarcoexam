@@ -1,20 +1,141 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css"
+        integrity="sha512-p4vIrJ1mDmOVghNMM4YsWxm0ELMJ/T0IkdEvrkNHIcgFsSzDi/fV7YxzTzb3mnMvFPawuIyIrHcpxClauEfpQg=="
+        crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="css/styles.css" />
+
 
     <title>Demo examen</title>
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-dark">
+        <a class="navbar-brand" href="#">
+            <img src="favicon.ico" width="30" height="auto" alt="logo">
+        </a>
+    </nav>
+    <div class="container">
+        <form id="cotizacion">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2>TEST API</h2>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-12">
+                    <h3>Vehículo</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 col-md-3 form-group">
+                    <label for="marca">Marca:</label>
+                    <select name="marca" id="marca" class="select2"></select>
+                </div>
+                <div class="col-6 col-md-3 form-group">
+                    <label for="submarca">Subarca:</label>
+                    <select name="submarca" id="submarca" class="select2"></select>
+                </div>
+                <div class="col-6 col-md-3 form-group">
+                    <label for="modelo">Modelo:</label>
+                    <select name="modelo" id="modelo" class="select2"></select>
+                </div>
+                <div class="col-6 col-md-3 form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <select name="descripcion" id="descripcion" class="select2"></select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <h3>Domicilio</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 col-md-3 form-group">
+                    <label for="codigopostal">Código postal:</label>
+                    <input id="codigopostal" type="text" maxlength="5" required />
+                </div>
+                <div class="col-6 col-md-3 form-group">
+                    <label for="estado">Estado:</label>
+                    <input id="estado" type="text" disabled required />
+                </div>
+                <div class="col-6 col-md-3 form-group">
+                    <label for="municipio">Municipio:</label>
+                    <input id="municipio" type="text" disabled required />
+                </div>
+                <div class="col-6 col-md-3 form-group">
+                    <label for="colonia">Colonia:</label>
+                    <input id="colonia" type="text" disabled required />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <h3>Persona</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 col-md-3 form-group">
+                    <label for="nacimiento">Fecha de nacimiento:</label>
+                    <input id="nacimiento" type="text" required />
+                </div>
+                <div class="col-6 col-md-3 form-group">
+                    <label for="genero">Género:</label>
+                    <select name="genero" id="genero" class="select2">
+                        <option value="" selected="true">Seleccione un género</option>
+                        <option value="12">Femenino</option>
+                        <option value="11">Masculino</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-right">
+                    <button type="submit" class="btn btn-dark">Cotizar&nbsp;&nbsp;<i class="fas fa-check"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="footer">
+        <span>Examen Andrea Rodríguez</span>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="/js/script.js"></script>
-  </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"
+        integrity="sha512-eyHL1atYNycXNXZMDndxrDhNAegH2BDWt1TmkXJPoGf1WLlNYt08CSjkqF5lnCRmdm3IrkHid8s2jOUY4NIZVQ=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
+        integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
+        crossorigin="anonymous"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"
+        integrity="sha512-5pjEAV8mgR98bRTcqwZ3An0MYSOleV04mwwYj2yw+7PBhFVf/0KcE+NEox0XrFiU5+x5t5qidmo5MgBkDD9hEw=="
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/96eab8ead2.js" crossorigin="anonymous"></script>
+
+    <script src="js/script.js"></script>
+</body>
+
 </html>
